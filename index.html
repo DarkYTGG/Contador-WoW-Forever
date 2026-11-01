@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World of Warcraft: Forever — Cuenta Regresiva Fandom</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230b0e14' stroke='%23d4af37' stroke-width='4'/><path d='M32,50 C32,40 40,34 46,42 L54,58 C60,66 68,60 68,50 C68,40 60,34 54,42 L46,58 C40,66 32,60 32,50 Z' fill='none' stroke='%23d4af37' stroke-width='6'/></svg>">
+  
+  <!-- High Fantasy Warcraft Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800;900&family=Marcellus&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css?v=20261101_8">
+</head>
+<body class="theme-titans">
+  <!-- Cross-fading Faction Background Layers -->
+  <div class="bg-backdrop-layer bg-titans"></div>
+  <div class="bg-backdrop-layer bg-alliance"></div>
+  <div class="bg-backdrop-layer bg-horde"></div>
+
+  <!-- Dynamic Canvas Particle Layer -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Atmospheric Glow Overlays -->
+  <div class="bg-vignette"></div>
+  <div class="bg-runic-mist"></div>
+
+  <!-- Hidden YouTube Player Container -->
+  <div id="youtube-player-container">
+    <div id="youtube-player"></div>
+  </div>
+
+  <!-- Main View Container -->
+  <div class="page-container">
+
+    <!-- Top Realm Header Bar -->
+    <header class="top-nav">
+      <div class="server-badge">
+        <span class="status-gem ping-live"></span>
+        <span class="status-label">ESTADO DEL REINO:</span>
+        <span id="realm-status-text" class="status-val">SINCRONIZANDO PORTALES TEMPORALES</span>
+      </div>
+
+      <!-- Faction / Theme Picker -->
+      <div class="faction-picker" title="Elegir Facci&oacute;n / Aspecto">
+        <button class="faction-btn active" data-theme="titans" title="Aspecto Tit&aacute;nico (Dorado Arcano)">
+          <svg viewBox="0 0 24 24" class="faction-svg">
+            <path fill="currentColor" d="M11 21h-1l1-7H7.5c-.88 0-.33-.75-.31-.78C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-6 10.49z"/>
+          </svg>
+          <span>Titanes</span>
+        </button>
+        <button class="faction-btn" data-theme="alliance" title="Por la Alianza (Azul y Oro)">
+          <img src="assets/crest_alliance.png" alt="Alianza" class="nav-faction-crest">
+          <span>Alianza</span>
+        </button>
+        <button class="faction-btn" data-theme="horde" title="&iexcl;Por la Horda! (Rojo y Acero)">
+          <img src="assets/crest_horde.png" alt="Horda" class="nav-faction-crest">
+          <span>Horda</span>
+        </button>
+      </div>
+
+      <!-- Fandom Release Badge -->
+      <div class="realm-badge-locked">
+        <span class="realm-badge-text">PROYECTO FANDOM 2026</span>
+      </div>
+    </header>
+
+    <!-- Center Hero Section -->
+    <main class="hero-center">
+      
+      <!-- Central Branding & Logo -->
+      <div class="logo-wrapper">
+        <div class="warcraft-banner">
+          <span class="banner-wing left"></span>
+          <span class="banner-text" id="hero-banner-text">TWO OLD ROADS &bull; A POSSIBLE NEW JOURNEY</span>
+          <span class="banner-wing right"></span>
+        </div>
+
+        <div class="official-logo-container">
+          <img src="assets/logo_forever.png" alt="World of Warcraft Forever" class="hero-official-logo">
+        </div>
+
+        <p class="tagline" id="hero-tagline-text">
+          El renacimiento definitivo de Azeroth. El lazo del infinito une el pasado y el futuro de los campeones.
+        </p>
+      </div>
+
+      <!-- Faction Watermark Crests in Background -->
+      <div class="faction-watermark-container">
+        <!-- Titans Crest Watermark -->
+        <svg viewBox="0 0 200 200" class="faction-watermark watermark-titans">
+          <circle cx="100" cy="100" r="85" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/>
+          <path d="M100 20 L120 70 L175 75 L135 110 L145 165 L100 135 L55 165 L65 110 L25 75 L80 70 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+        </svg>
+
+        <!-- Alliance Crest Watermark -->
+        <img src="assets/crest_alliance.png" alt="Alianza" class="faction-watermark watermark-alliance-img">
+
+        <!-- Horde Crest Watermark -->
+        <img src="assets/crest_horde.png" alt="Horda" class="faction-watermark watermark-horde-img">
+      </div>
+
+      <!-- THE RUSTIC QUEST NOTICE BOARD (TABLÓN DE MISIONES COMPLETO) -->
+      <div class="countdown-section">
+        
+        <div class="quest-board-stage">
+          
+          <!-- LEFT SUPPORT PILLAR (LO QUE SOSTIENE EL CARTEL - IZQUIERDA) -->
+          <div class="board-flanking-pillar pillar-left" title="Pilar de soporte">
+            <img src="assets/pillar_horde.png" class="pillar-asset pillar-horde-img" alt="Pilar Horda">
+            <img src="assets/pillar_alliance.png" class="pillar-asset pillar-alliance-img" alt="Torre Alianza">
+          </div>
+
+          <!-- CONNECTING CHAIN / ROPE (CADENA CONECTADA - IZQUIERDA) -->
+          <div class="board-chain-connector chain-left">
+            <svg class="chain-svg" viewBox="0 0 120 60" preserveAspectRatio="none">
+              <!-- Shadow -->
+              <path class="chain-path-shadow" d="M 5 22 Q 60 55 115 32" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+              <!-- Iron Links / Heavy Rope -->
+              <path class="chain-path-iron" d="M 5 22 Q 60 55 115 32" fill="none" stroke="#2b2b2b" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="14 6"/>
+              <path class="chain-path-core" d="M 5 22 Q 60 55 115 32" fill="none" stroke="#777" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="14 6"/>
+              <!-- Anchor Ring (on Pillar) -->
+              <circle cx="5" cy="22" r="8" fill="#111" stroke="#444" stroke-width="3.5"/>
+              <!-- Cleat Ring (on Board) -->
+              <circle cx="115" cy="32" r="7" fill="#111" stroke="#3d3d3d" stroke-width="3"/>
+            </svg>
+          </div>
+
+          <!-- THE MAIN NOTICE BOARD (TABLÓN CENTRAL) -->
+          <div class="quest-board">
+
+            <!-- Top Faction War-Shield & Leather Pelt Header -->
+            <div class="board-top-crest">
+              <div class="crest-shield-plate"></div>
+              <div class="crest-leather-pelt">
+                <span class="pelt-cross">&times;</span>
+                <span class="pelt-cross">&times;</span>
+                <span class="pelt-cross">&times;</span>
+                <span class="pelt-cross">&times;</span>
+              </div>
+              <img src="assets/crest_horde.png" class="crest-icon crest-icon-horde" alt="Horda">
+              <img src="assets/crest_alliance.png" class="crest-icon crest-icon-alliance" alt="Alianza">
+              <div class="crest-icon crest-icon-titans">
+                <svg viewBox="0 0 44 44" class="titan-crest-svg">
+                  <polygon points="22,4 27,16 40,17 31,26 34,39 22,31 10,39 13,26 4,17 17,16" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Horde Side Wooden Spikes (Picos en los Laterales del Tablón) -->
+            <div class="horde-side-spike spike-left-1" title="Pico de madera orco"></div>
+            <div class="horde-side-spike spike-left-2" title="Pico de madera orco"></div>
+            <div class="horde-side-spike spike-right-1" title="Pico de madera orco"></div>
+            <div class="horde-side-spike spike-right-2" title="Pico de madera orco"></div>
+
+            <!-- Rustic Wooden Planks Face (Frame with Solid Integrated Corners) -->
+            <div class="board-wood-face">
+
+              <!-- Faction Emblem Branded into Center of Wooden Planks -->
+              <div class="board-wood-brand">
+                <img src="assets/crest_horde.png" class="wood-brand-img brand-horde" alt="Horda">
+                <img src="assets/crest_alliance.png" class="wood-brand-img brand-alliance" alt="Alianza">
+              </div>
+
+              <!-- 4 Connected Corner Reinforcements (SOLIDLY WELDED TO THE FRAME) -->
+              <div class="corner-bracket corner-tl"><span class="iron-bolt"></span></div>
+              <div class="corner-bracket corner-tr"><span class="iron-bolt"></span></div>
+              <div class="corner-bracket corner-bl"><span class="iron-bolt"></span></div>
+              <div class="corner-bracket corner-br"><span class="iron-bolt"></span></div>
+              
+              <div class="timer-grid">
+                <!-- DAYS (Pergamino I: Conteo de Días - Daga Clavada y Borde Enrollado) -->
+                <div class="quest-parchment parchment-days" id="card-days">
+                  <div class="parchment-fastener fastener-dagger" title="Daga de combate orca clavada">
+                    <svg viewBox="0 0 28 44" class="dagger-svg">
+                      <filter id="shadow-dagger" x="-25%" y="-25%" width="160%" height="160%">
+                        <feDropShadow dx="2" dy="5" stdDeviation="3" flood-color="#000" flood-opacity="0.95"/>
+                      </filter>
+                      <circle cx="14" cy="4" r="3.5" fill="#1c1c1c" stroke="#555" stroke-width="1.2"/>
+                      <rect x="12" y="7" width="4" height="11" rx="1" fill="#3b1d0c" stroke="#1f0f06" stroke-width="1"/>
+                      <path d="M5,18 L23,18 L21,21 L7,21 Z" fill="#2b2b2b" stroke="#777" stroke-width="1"/>
+                      <path d="M10.5,21 L17.5,21 L15,40 L14,43 L13,40 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1.2" filter="url(#shadow-dagger)"/>
+                      <line x1="14" y1="22" x2="14" y2="37" stroke="#881337" stroke-width="1.3"/>
+                    </svg>
+                  </div>
+                  <div class="parchment-sheet sheet-days">
+                    <div class="parchment-overlay-burn"></div>
+                    <div class="plate-number" id="num-days">00</div>
+                    <div class="parchment-label">
+                      <span class="label-decor">&diams;</span>
+                      <span class="label-text">D&Iacute;AS</span>
+                      <span class="label-decor">&diams;</span>
+                    </div>
+                    <div class="parchment-meta">MISI&Oacute;N I</div>
+                    <!-- Curled scroll bottom -->
+                    <div class="scroll-curl-bottom"></div>
+                  </div>
+                </div>
+
+                <div class="board-separator">:</div>
+
+                <!-- HOURS (Pergamino II: Horas de Guardia - Clavo Forjado y Sello de Cera) -->
+                <div class="quest-parchment parchment-hours" id="card-hours">
+                  <div class="parchment-fastener fastener-nail" title="Clavo forjado">
+                    <span class="nail-head"></span>
+                  </div>
+                  <div class="parchment-sheet sheet-hours">
+                    <div class="parchment-overlay-burn"></div>
+                    <div class="parchment-wax-seal" title="Sello de Cera Oficial">
+                      <span class="wax-seal-inner">&infin;</span>
+                    </div>
+                    <div class="plate-number" id="num-hours">00</div>
+                    <div class="parchment-label">
+                      <span class="label-decor">&diams;</span>
+                      <span class="label-text">HORAS</span>
+                      <span class="label-decor">&diams;</span>
+                    </div>
+                    <div class="parchment-meta">MISI&Oacute;N II</div>
+                  </div>
+                </div>
+
+                <div class="board-separator">:</div>
+
+                <!-- MINUTES (Pergamino III: Minutos del Juicio - Manchas y Sello) -->
+                <div class="quest-parchment parchment-minutes" id="card-minutes">
+                  <div class="parchment-fastener fastener-nail" title="Clavo forjado">
+                    <span class="nail-head"></span>
+                  </div>
+                  <div class="parchment-sheet sheet-minutes">
+                    <div class="parchment-overlay-burn"></div>
+                    <div class="plate-number" id="num-minutes">00</div>
+                    <div class="parchment-label">
+                      <span class="label-decor">&diams;</span>
+                      <span class="label-text">MINUTOS</span>
+                      <span class="label-decor">&diams;</span>
+                    </div>
+                    <div class="parchment-meta">MISI&Oacute;N III</div>
+                    <div class="parchment-bounty-stamp" title="Marca de Recompensa">&cross;</div>
+                  </div>
+                </div>
+
+                <div class="board-separator">:</div>
+
+                <!-- SECONDS (Pergamino IV: Segundos de Batalla - Hacha Clavada y Cartel Se Busca) -->
+                <div class="quest-parchment parchment-seconds" id="card-seconds">
+                  <div class="parchment-fastener fastener-hatchet" title="Hacha de guerra orca incrustada">
+                    <svg viewBox="0 0 46 50" class="hatchet-svg">
+                      <filter id="shadow-axe" x="-25%" y="-25%" width="170%" height="170%">
+                        <feDropShadow dx="4" dy="6" stdDeviation="3.5" flood-color="#000" flood-opacity="0.95"/>
+                      </filter>
+                      <line x1="8" y1="46" x2="30" y2="4" stroke="#45230e" stroke-width="5" stroke-linecap="round"/>
+                      <line x1="13" y1="37" x2="17" y2="29" stroke="#92623a" stroke-width="2.5"/>
+                      <line x1="17" y1="29" x2="21" y2="21" stroke="#92623a" stroke-width="2.5"/>
+                      <path d="M23,13 L40,4 L44,20 L36,28 L25,22 Z" fill="#2d3036" stroke="#5b6270" stroke-width="1.3" filter="url(#shadow-axe)"/>
+                      <path d="M39,5 L43,20 L37,27" fill="none" stroke="#e5e7eb" stroke-width="1.8"/>
+                      <polygon points="41,13 38,15 42,17" fill="#991b1b"/>
+                    </svg>
+                  </div>
+                  <div class="parchment-sheet sheet-seconds">
+                    <div class="parchment-overlay-burn"></div>
+                    <div class="wanted-poster-overlay">
+                      <div class="wanted-sketch-silhouette"></div>
+                      <div class="wanted-blood-cross"></div>
+                    </div>
+                    <div class="plate-number" id="num-seconds">00</div>
+                    <div class="parchment-label">
+                      <span class="label-decor">&diams;</span>
+                      <span class="label-text">SEGUNDOS</span>
+                      <span class="label-decor">&diams;</span>
+                    </div>
+                    <div class="parchment-meta">MISI&Oacute;N IV</div>
+                  </div>
+                </div>
+
+                <div class="board-separator ms-separator">:</div>
+
+                <!-- MILLISECONDS (Pergamino V: Pulso Temporal - Retazo de Papel) -->
+                <div class="quest-parchment ms-card parchment-ms" id="card-ms">
+                  <div class="parchment-fastener fastener-nail" title="Clavo forjado">
+                    <span class="nail-head"></span>
+                  </div>
+                  <div class="parchment-sheet sheet-ms">
+                    <div class="parchment-overlay-burn"></div>
+                    <div class="plate-number ms-number" id="num-ms">000</div>
+                    <div class="parchment-label">
+                      <span class="label-decor">&diams;</span>
+                      <span class="label-text">MILISEG</span>
+                      <span class="label-decor">&diams;</span>
+                    </div>
+                    <div class="parchment-meta">TIEMPO</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Horde Axe-Hewn Timber Stake Tips (Unidos directamente a la madera) -->
+              <div class="horde-hewn-overlay" aria-hidden="true">
+                <svg class="hewn-faceted-svg" viewBox="0 0 800 100" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="hewn-facet-lit" x1="20%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#3d1c0b" stop-opacity="0"/>
+                      <stop offset="25%" stop-color="#965b2d" stop-opacity="0.35"/>
+                      <stop offset="55%" stop-color="#d8a262" stop-opacity="0.75"/>
+                      <stop offset="85%" stop-color="#faecd7" stop-opacity="0.95"/>
+                      <stop offset="100%" stop-color="#fffaf0" stop-opacity="1"/>
+                    </linearGradient>
+                    <linearGradient id="hewn-facet-shd" x1="0%" y1="0%" x2="20%" y2="100%">
+                      <stop offset="0%" stop-color="#180802" stop-opacity="0"/>
+                      <stop offset="25%" stop-color="#2e1306" stop-opacity="0.45"/>
+                      <stop offset="55%" stop-color="#633314" stop-opacity="0.82"/>
+                      <stop offset="85%" stop-color="#995c2c" stop-opacity="0.92"/>
+                      <stop offset="100%" stop-color="#be804a" stop-opacity="0.98"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- 6 Timber Stakes Carved from Board Planks -->
+                  <polygon points="0,20 66.67,0 66.67,100 0,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="66.67,0 133.33,20 66.67,100" fill="url(#hewn-facet-shd)" />
+
+                  <polygon points="133.33,20 200,0 200,100 133.33,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="200,0 266.67,20 200,100" fill="url(#hewn-facet-shd)" />
+
+                  <polygon points="266.67,20 333.33,0 333.33,100 266.67,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="333.33,0 400,20 333.33,100" fill="url(#hewn-facet-shd)" />
+
+                  <polygon points="400,20 466.67,0 466.67,100 400,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="466.67,0 533.33,20 466.67,100" fill="url(#hewn-facet-shd)" />
+
+                  <polygon points="533.33,20 600,0 600,100 533.33,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="600,0 666.67,20 600,100" fill="url(#hewn-facet-shd)" />
+
+                  <polygon points="666.67,20 733.33,0 733.33,100 666.67,20" fill="url(#hewn-facet-lit)" />
+                  <polygon points="733.33,0 800,20 733.33,100" fill="url(#hewn-facet-shd)" />
+
+                  <!-- Dark wood separation lines between timber logs -->
+                  <line x1="133.33" y1="20" x2="133.33" y2="55" stroke="#0f0502" stroke-width="3" opacity="0.85"/>
+                  <line x1="266.67" y1="20" x2="266.67" y2="55" stroke="#0f0502" stroke-width="3" opacity="0.85"/>
+                  <line x1="400" y1="20" x2="400" y2="55" stroke="#0f0502" stroke-width="3" opacity="0.85"/>
+                  <line x1="533.33" y1="20" x2="533.33" y2="55" stroke="#0f0502" stroke-width="3" opacity="0.85"/>
+                  <line x1="666.67" y1="20" x2="666.67" y2="55" stroke="#0f0502" stroke-width="3" opacity="0.85"/>
+                </svg>
+              </div>
+
+            </div>
+
+            <!-- BOTTOM ADORNMENT (Alliance Carved Stone Pedestal) -->
+            <div class="board-bottom-adornment">
+              <!-- Alliance: White Stone Carved Swirl Pedestal -->
+              <div class="alliance-stone-base" title="Pedestal de piedra tallada de Ventormenta">
+                <svg class="alliance-pedestal-svg" viewBox="0 0 600 60" preserveAspectRatio="none">
+                  <path d="M 30,30 Q 60,10 90,30 Q 120,50 150,30 Q 180,10 210,30 Q 240,50 270,30 Q 300,10 330,30 Q 360,50 390,30 Q 420,10 450,30 Q 480,50 510,30 Q 540,10 570,30" fill="none" stroke="#64748b" stroke-width="4" stroke-linecap="round"/>
+                  <path d="M 30,32 Q 60,12 90,32 Q 120,52 150,32 Q 180,12 210,32 Q 240,52 270,32 Q 300,12 330,32 Q 360,52 390,32 Q 420,12 450,32 Q 480,52 510,32 Q 540,12 570,32" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="300" cy="30" r="14" fill="#cbd5e1" stroke="#94a3b8" stroke-width="3"/>
+                  <circle cx="300" cy="30" r="7" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+                </svg>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CONNECTING CHAIN / ROPE (CADENA CONECTADA - DERECHA) -->
+          <div class="board-chain-connector chain-right">
+            <svg class="chain-svg" viewBox="0 0 120 60" preserveAspectRatio="none">
+              <!-- Shadow -->
+              <path class="chain-path-shadow" d="M 5 32 Q 60 55 115 22" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+              <!-- Iron Links / Heavy Rope -->
+              <path class="chain-path-iron" d="M 5 32 Q 60 55 115 22" fill="none" stroke="#2b2b2b" stroke-width="8.5" stroke-linecap="round" stroke-dasharray="14 6"/>
+              <path class="chain-path-core" d="M 5 32 Q 60 55 115 22" fill="none" stroke="#777" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="14 6"/>
+              <!-- Cleat Ring (on Board) -->
+              <circle cx="5" cy="32" r="7" fill="#111" stroke="#3d3d3d" stroke-width="3"/>
+              <!-- Anchor Ring (on Pillar) -->
+              <circle cx="115" cy="22" r="8" fill="#111" stroke="#444" stroke-width="3.5"/>
+            </svg>
+          </div>
+
+          <!-- RIGHT SUPPORT PILLAR (LO QUE SOSTIENE EL CARTEL - DERECHA) -->
+          <div class="board-flanking-pillar pillar-right" title="Pilar de soporte">
+            <img src="assets/pillar_horde.png" class="pillar-asset pillar-horde-img" alt="Pilar Horda">
+            <img src="assets/pillar_alliance.png" class="pillar-asset pillar-alliance-img" alt="Torre Alianza">
+          </div>
+
+        </div>
+
+        <!-- Release Details & Time Info -->
+        <div class="launch-info-plate">
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" class="info-svg-icon">
+              <path fill="currentColor" d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>
+            </svg>
+            <span class="info-title">Apertura Mundial:</span>
+            <span class="info-value" id="official-date-display">4 de Noviembre de 2026 &mdash; 23:00 UTC</span>
+          </div>
+          <div class="info-divider"></div>
+          <div class="info-row">
+            <svg viewBox="0 0 24 24" class="info-svg-icon">
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+            </svg>
+            <span class="info-title">Tu Hora Local:</span>
+            <span class="info-value highlight" id="local-date-display">Calculando...</span>
+          </div>
+        </div>
+
+        <!-- Progress Towards Launch -->
+        <div class="launch-progress-container">
+          <div class="progress-labels">
+            <span class="progress-caption">Convergencia Temporal Hacia el Renacimiento</span>
+            <span class="progress-percent" id="progress-percent-text">0.0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill-bar"></div>
+          </div>
+        </div>
+
+        <!-- Launch Celebration Message -->
+        <div id="launch-celebration" class="launch-celebration-box hidden">
+          <div class="celebration-title">LOS PORTALES DE AZEROTH SE HAN ABIERTO</div>
+          <p class="celebration-text">&iexcl;Bienvenido a World of Warcraft: Forever! Tu leyenda comienza ahora.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Audio HUD Bar -->
+    <footer class="audio-hud">
+      <div class="audio-hud-inner">
+        
+        <!-- Track metadata & animated visualizer -->
+        <div class="track-info-group">
+          <div class="visualizer" id="equalizer-bars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          <div class="track-text">
+            <div class="track-title-row">
+              <span class="track-name">Two Steps From Hell &mdash; Victory</span>
+              
+              <!-- 'Forever' Badge -->
+              <div class="badge-forever-container" title="Banda sonora oficial en reproducci&oacute;n continua en bucle">
+                <span class="badge-forever-glow"></span>
+                <span class="badge-forever-infinity">&infin;</span>
+                <span class="badge-forever-text">Forever</span>
+              </div>
+            </div>
+            <span class="track-meta" id="audio-status-label">Banda Sonora en Reproducci&oacute;n Continua</span>
+          </div>
+        </div>
+
+        <!-- Clean Audio Controls (SVG Icons) -->
+        <div class="audio-controls-group">
+          <!-- Play / Pause -->
+          <button id="btn-toggle-play" class="hud-btn" title="Pausar / Reanudar M&uacute;sica">
+            <span id="play-icon-container">
+              <svg viewBox="0 0 24 24" class="ctrl-svg">
+                <path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+            </span>
+          </button>
+
+          <!-- Volume Slider & Mute -->
+          <div class="volume-slider-group">
+            <button id="btn-toggle-mute" class="hud-btn-mute" title="Silenciar / Activar Sonido">
+              <span id="volume-icon-container">
+                <svg viewBox="0 0 24 24" class="ctrl-svg-sm">
+                  <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+              </span>
+            </button>
+            <input type="range" id="volume-slider" min="0" max="100" value="35" class="wow-slider" title="Volumen Moderado">
+            <span id="volume-percent" class="volume-number">35%</span>
+          </div>
+
+          <!-- YouTube Source Link -->
+          <a href="https://www.youtube.com/watch?v=VWQrvUe_jbo&t" target="_blank" rel="noopener noreferrer" class="yt-link-btn" title="Ver video original en YouTube">
+            <svg class="yt-icon" viewBox="0 0 24 24">
+              <path fill="#e50914" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+              <path fill="#ffffff" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            <span class="yt-text">YouTube</span>
+          </a>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="script.js?v=20261101_8"></script>
+</body>
+</html>

@@ -1,0 +1,1850 @@
+/* ==========================================================================
+   WORLD OF WARCRAFT: FOREVER — OFFICIAL COUNTDOWN STYLESHEET
+   Concept: Warchief & Hero's Quest Notice Board (Tablón de Misiones)
+   ========================================================================== */
+
+:root {
+  /* Titans / Neutral Arcane (Default) */
+  --theme-primary: #d4af37;
+  --theme-secondary: #00e5ff;
+  --theme-glow: rgba(0, 229, 255, 0.35);
+  --theme-accent-gold: #f3cf65;
+  --theme-dark-bg: #05080e;
+  
+  /* Wood Board Palettes (Default Titans) */
+  --wood-plank-1: #2a1c12;
+  --wood-plank-2: #1e130b;
+  --wood-seam: #100a06;
+  --board-border: #4d3319;
+  --pelt-bg: #382416;
+  --pelt-fur: #dcd3c4;
+  --parchment-bg: linear-gradient(175deg, #f9f5eb 0%, #eddab6 40%, #dec498 75%, #cca571 100%);
+  --parchment-border: #8c6739;
+  --parchment-shadow: rgba(85, 45, 10, 0.35);
+  --ink-color: #261105;
+  --ink-shadow: rgba(255, 255, 255, 0.4);
+  
+  /* Shared Gradients */
+  --grad-gold: linear-gradient(180deg, #ffffff 0%, #fff1ba 30%, #e0ab34 65%, #7a4f08 100%);
+  
+  /* Typography */
+  --font-title: 'Cinzel Decorative', 'Cinzel', serif;
+  --font-body: 'Marcellus', 'Cinzel', serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+/* ==========================================================================
+   ALLIANCE: HERO'S CALL BOARD (TABLÓN DEL HÉROE - NOBLE, POLISHED OAK)
+   ========================================================================== */
+body.theme-alliance {
+  --theme-primary: #2563eb;
+  --theme-secondary: #f3cf65;
+  --theme-glow: rgba(37, 99, 235, 0.4);
+  --theme-accent-gold: #fae69e;
+  --theme-dark-bg: #040814;
+  
+  /* Royal Polished Dark Oak with Gold & Sapphire Trims */
+  --wood-plank-1: #1f2538;
+  --wood-plank-2: #151b2a;
+  --wood-seam: #0b0f18;
+  --board-border: #d4af37;
+  --pelt-bg: #1e3a8a;
+  --pelt-fur: #f3cf65;
+  --parchment-bg: linear-gradient(175deg, #fbf8f0 0%, #f1e4ce 40%, #e3d3b6 75%, #d5be9b 100%);
+  --parchment-border: #b89345;
+  --parchment-shadow: rgba(30, 58, 138, 0.25);
+  --ink-color: #0f1c3f;
+  --ink-shadow: rgba(212, 175, 55, 0.3);
+}
+
+/* ==========================================================================
+   HORDE: WARCHIEF'S COMMAND BOARD (TABLÓN DEL JEFE DE GUERRA - RÚSTICO)
+   ========================================================================== */
+body.theme-horde {
+  --theme-primary: #b91c1c;
+  --theme-secondary: #ea580c;
+  --theme-glow: rgba(185, 28, 28, 0.5);
+  --theme-accent-gold: #f59e0b;
+  --theme-dark-bg: #080404;
+  
+  /* Rustic Orgrimmar Timber Planks, Leather Pelt & White Fur */
+  --wood-plank-1: #24140d;
+  --wood-plank-2: #180c07;
+  --wood-seam: #0a0402;
+  --board-border: #7f1d1d;
+  --pelt-bg: #4a1510;
+  --pelt-fur: #ede4d6;
+  --parchment-bg: linear-gradient(175deg, #f5ebd5 0%, #e8d0a8 40%, #d8b886 75%, #be945d 100%);
+  --parchment-border: #6d421d;
+  --parchment-shadow: rgba(120, 25, 10, 0.4);
+  --ink-color: #2b0b04;
+  --ink-shadow: rgba(234, 88, 12, 0.3);
+}
+
+/* ==========================================================================
+   RESET & FOUNDATIONS
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--theme-dark-bg);
+  color: #e2e8f0;
+  font-family: var(--font-body);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cross-fading Faction Background Layers */
+.bg-backdrop-layer {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1.02);
+}
+
+.bg-backdrop-layer.bg-titans {
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(5, 8, 14, 0.45) 0%, rgba(5, 8, 14, 0.88) 75%, #05080e 100%),
+    url('assets/bg_horley_landscape.jpg');
+}
+
+.bg-backdrop-layer.bg-alliance {
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(4, 9, 22, 0.45) 0%, rgba(2, 6, 16, 0.90) 75%, #01040a 100%),
+    url('assets/bg_stormwind.jpg');
+}
+
+.bg-backdrop-layer.bg-horde {
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(20, 6, 6, 0.45) 0%, rgba(14, 4, 4, 0.92) 75%, #060202 100%),
+    url('assets/bg_orgrimmar.jpg');
+}
+
+body.theme-titans .bg-backdrop-layer.bg-titans { opacity: 1; }
+body.theme-alliance .bg-backdrop-layer.bg-alliance { opacity: 1; }
+body.theme-horde .bg-backdrop-layer.bg-horde { opacity: 1; }
+
+/* Canvas Particle Layer */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Atmospheric Overlays */
+.bg-vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 160px 40px rgba(0, 0, 0, 0.92);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.bg-runic-mist {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, var(--theme-glow) 0%, transparent 65%);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+  transition: all 0.8s ease;
+}
+
+/* YouTube Player Container */
+#youtube-player-container {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+  width: 320px;
+  height: 200px;
+  pointer-events: none;
+  opacity: 0.01;
+  z-index: -999;
+}
+
+/* Page Frame */
+.page-container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem 6.5rem 1.5rem;
+}
+
+/* ==========================================================================
+   TOP BAR & REALM STATUS
+   ========================================================================== */
+.top-nav {
+  width: 100%;
+  max-width: 1360px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: rgba(8, 12, 18, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.4s ease;
+}
+
+.server-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-gem {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f59e0b;
+  box-shadow: 0 0 10px #f59e0b;
+  position: relative;
+}
+
+.status-gem.ping-live::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  border: 2px solid #f59e0b;
+  animation: gemPing 2s infinite cubic-bezier(0, 0, 0.2, 1);
+}
+
+.status-gem.live-green {
+  background: #10b981;
+  box-shadow: 0 0 12px #10b981;
+}
+
+.status-gem.live-green::after {
+  border-color: #10b981;
+}
+
+@keyframes gemPing {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.status-label {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.status-val {
+  color: #f3cf65;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(243, 207, 101, 0.5);
+  transition: color 0.4s ease;
+}
+
+/* Faction Switcher */
+.faction-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faction-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.faction-svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.nav-faction-crest {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.8));
+}
+
+.faction-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.faction-btn.active {
+  background: rgba(212, 175, 55, 0.22);
+  border-color: var(--theme-primary);
+  color: #fff;
+  box-shadow: 0 0 15px var(--theme-glow);
+}
+
+body.theme-alliance .faction-btn.active {
+  background: rgba(37, 99, 235, 0.28);
+  border-color: #3b82f6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+body.theme-horde .faction-btn.active {
+  background: rgba(185, 28, 28, 0.28);
+  border-color: #b91c1c;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6);
+}
+
+.realm-badge-locked {
+  display: flex;
+  align-items: center;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+}
+
+.realm-badge-text {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--theme-accent-gold);
+}
+
+/* ==========================================================================
+   CENTER HERO SECTION & LOGO
+   ========================================================================== */
+.hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 1150px;
+  width: 100%;
+  margin: 1.5rem auto;
+  position: relative;
+}
+
+.logo-wrapper {
+  margin-bottom: 1.8rem;
+  position: relative;
+  z-index: 5;
+}
+
+.warcraft-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.banner-wing {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--theme-primary));
+  transition: background 0.4s ease;
+}
+.banner-wing.right {
+  background: linear-gradient(90deg, var(--theme-primary), transparent);
+  transition: background 0.4s ease;
+}
+
+.banner-text {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  color: var(--theme-accent-gold);
+  text-shadow: 0 0 12px rgba(243, 207, 101, 0.6);
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+}
+
+.official-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.hero-official-logo {
+  width: 100%;
+  max-width: clamp(290px, 40vw, 460px);
+  height: auto;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 35px var(--theme-glow));
+  animation: logoFloat 4s ease-in-out infinite alternate;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@keyframes logoFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+  color: #cbd5e1;
+  max-width: 660px;
+  margin: 0.8rem auto 0 auto;
+  line-height: 1.5;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.04em;
+  transition: all 0.4s ease;
+}
+
+/* ==========================================================================
+   FACTION WATERMARK CRESTS IN BACKGROUND
+   ========================================================================== */
+.faction-watermark-container {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(750px, 82vw, 1150px);
+  height: clamp(750px, 82vw, 1150px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.faction-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+.watermark-titans {
+  width: 85%;
+  height: 85%;
+  color: #d4af37;
+  filter: drop-shadow(0 0 40px var(--theme-glow));
+}
+
+.watermark-alliance-img {
+  filter: drop-shadow(0 0 50px rgba(37, 99, 235, 0.65)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.45));
+}
+
+.watermark-horde-img {
+  filter: drop-shadow(0 0 55px rgba(220, 38, 38, 0.8)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.45));
+}
+
+body.theme-titans .watermark-titans { opacity: 0.18; transform: translate(-50%, -50%) scale(1); }
+body.theme-alliance .watermark-alliance-img { opacity: 0.28; transform: translate(-50%, -50%) scale(1); }
+body.theme-horde .watermark-horde-img { opacity: 0.38; transform: translate(-50%, -50%) scale(1); }
+
+/* ==========================================================================
+   THE QUEST NOTICE BOARD (STAGE WITH SUPPORT PILLARS & CONNECTED CHAINS)
+   ========================================================================== */
+.countdown-section {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* THE COMPLETE THREE-COLUMN INTEGRATED STAGE */
+.quest-board-stage {
+  display: flex;
+  align-items: flex-start; /* Pillars, chains, and suspended board share consistent top origin */
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 1rem auto 2.5rem auto;
+  filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.98));
+}
+
+/* --------------------------------------------------------------------------
+   FLANKING SUPPORT PILLARS (LO QUE SOSTIENE EL CARTEL)
+   -------------------------------------------------------------------------- */
+.board-flanking-pillar {
+  width: clamp(120px, 14vw, 185px);
+  height: clamp(520px, 58vh, 670px);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.pillar-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  filter: drop-shadow(0 18px 35px rgba(0, 0, 0, 0.98));
+  pointer-events: none;
+  display: none;
+}
+
+.pillar-right .pillar-horde-img {
+  transform: scaleX(-1);
+}
+
+body.theme-horde .pillar-horde-img { display: block; }
+body.theme-alliance .pillar-alliance-img { display: block; }
+body.theme-titans .pillar-horde-img {
+  display: block;
+  filter: hue-rotate(185deg) brightness(1.2) drop-shadow(0 0 25px rgba(0, 229, 255, 0.5));
+}
+
+/* --------------------------------------------------------------------------
+   CONNECTING CHAINS & MOORING ROPES (CADENAS CONECTADAS)
+   -------------------------------------------------------------------------- */
+.board-chain-connector {
+  width: clamp(55px, 7.5vw, 98px);
+  height: 65px;
+  z-index: 12;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: clamp(80px, 10vw, 115px);
+  pointer-events: none;
+}
+
+.chain-left {
+  margin-left: -50px; /* Pulls anchor ring deep onto the pillar totem */
+  margin-right: -18px; /* Bolts cleat ring onto board top-left corner bracket */
+}
+
+.chain-right {
+  margin-left: -18px; /* Bolts cleat ring onto board top-right corner bracket */
+  margin-right: -50px; /* Pulls anchor ring deep onto the pillar totem */
+}
+
+.chain-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chain-path-shadow {
+  stroke: rgba(0, 0, 0, 0.85);
+  filter: blur(2px);
+}
+
+.chain-path-iron {
+  stroke: #262626;
+  stroke-width: 9;
+  transition: stroke 0.4s ease;
+}
+
+.chain-path-core {
+  stroke: #8e8e8e;
+  stroke-width: 2.8;
+  transition: stroke 0.4s ease;
+}
+
+body.theme-alliance .chain-path-iron {
+  stroke: #5c4424;
+  stroke-width: 8.5;
+  stroke-dasharray: 8 4;
+}
+
+body.theme-alliance .chain-path-core {
+  stroke: #d4af37;
+  stroke-width: 2.5;
+  stroke-dasharray: 8 4;
+}
+
+/* --------------------------------------------------------------------------
+   THE MAIN NOTICE BOARD (TABLÓN CENTRAL)
+   -------------------------------------------------------------------------- */
+.quest-board {
+  flex: 1;
+  max-width: 920px;
+  min-width: 0;
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: clamp(55px, 7vw, 85px); /* Suspends notice board directly from the chain cleats */
+}
+
+/* TOP FACTION CREST & MANTLE HEADER */
+.board-top-crest {
+  position: relative;
+  width: clamp(240px, 32vw, 360px);
+  height: 58px;
+  margin-bottom: -16px;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crest-shield-plate {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #3d1b10 0%, #220e08 60%, #0d0503 100%);
+  border: 3px solid #5a2c1a;
+  border-bottom: 6px solid #e2d7c5;
+  border-radius: 10px 10px 26px 26px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+}
+
+body.theme-alliance .crest-shield-plate {
+  background: linear-gradient(180deg, #1e3a8a 0%, #172554 60%, #0a0f1d 100%);
+  border-color: #ffd700;
+  border-bottom-color: #f3cf65;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), 0 0 25px rgba(37, 99, 235, 0.4);
+}
+
+body.theme-horde .crest-shield-plate {
+  border-color: #7f1d1d;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), 0 0 25px rgba(185, 28, 28, 0.4);
+}
+
+.crest-leather-pelt {
+  position: absolute;
+  top: 5px;
+  width: 84%;
+  display: flex;
+  justify-content: space-around;
+  font-family: var(--font-title);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #1a0802;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.25);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.crest-icon {
+  position: relative;
+  z-index: 5;
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 18px var(--theme-glow));
+  display: none;
+  animation: crestPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes crestPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
+body.theme-titans .crest-icon-titans { display: flex; color: #d4af37; }
+body.theme-alliance .crest-icon-alliance { display: block; }
+body.theme-horde .crest-icon-horde { display: block; }
+
+.titan-crest-svg {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 0 14px #d4af37);
+}
+
+/* --------------------------------------------------------------------------
+   RUSTIC WOODEN PLANKS FACE (FRAME WITH SOLID INTEGRATED CORNERS)
+   -------------------------------------------------------------------------- */
+.board-wood-face {
+  width: 100%;
+  position: relative;
+  background-image: 
+    linear-gradient(180deg, rgba(20, 10, 5, 0.52) 0%, rgba(10, 5, 2, 0.8) 100%),
+    url('assets/board_wood_texture.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 10px solid #24140b;
+  outline: 3px solid #080402;
+  border-radius: 6px;
+  box-shadow: 
+    inset 0 0 75px rgba(0, 0, 0, 0.98),
+    0 20px 50px rgba(0, 0, 0, 0.98);
+  padding: 2.8rem 1rem 2.2rem 1rem;
+  transition: all 0.4s ease;
+  overflow: visible;
+}
+
+body.theme-horde .board-wood-face {
+  background-image: 
+    linear-gradient(180deg, rgba(40, 12, 6, 0.48) 0%, rgba(15, 4, 2, 0.88) 100%),
+    url('assets/board_wood_texture.jpg');
+  border: none;
+  outline: none;
+  border-radius: 4px 4px 0 0;
+  padding-bottom: 7.8rem;
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 82%,
+    91.67% 100%, 83.33% 82%,
+    75.0% 100%, 66.67% 82%,
+    58.33% 100%, 50.0% 82%,
+    41.67% 100%, 33.33% 82%,
+    25.0% 100%, 16.67% 82%,
+    8.33% 100%, 0% 82%
+  );
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 35px rgba(185, 28, 28, 0.25));
+}
+
+body.theme-titans .board-wood-face {
+  background-image: 
+    linear-gradient(180deg, rgba(10, 24, 38, 0.5) 0%, rgba(5, 12, 22, 0.88) 100%),
+    url('assets/board_wood_texture.jpg');
+  border: none;
+  outline: none;
+  border-radius: 4px 4px 0 0;
+  padding-bottom: 7.8rem;
+  clip-path: polygon(
+    0% 0%, 100% 0%, 100% 82%,
+    91.67% 100%, 83.33% 82%,
+    75.0% 100%, 66.67% 82%,
+    58.33% 100%, 50.0% 82%,
+    41.67% 100%, 33.33% 82%,
+    25.0% 100%, 16.67% 82%,
+    8.33% 100%, 0% 82%
+  );
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.98)) drop-shadow(0 0 35px rgba(56, 189, 248, 0.25));
+}
+
+body.theme-alliance .board-wood-face {
+  background-image: 
+    linear-gradient(180deg, rgba(14, 24, 48, 0.62) 0%, rgba(7, 14, 30, 0.88) 100%),
+    url('assets/board_wood_texture.jpg');
+  border: 8px solid #cbd5e1;
+  outline: 3px solid #1e293b;
+  border-radius: 6px;
+  clip-path: none;
+  filter: none;
+  padding-bottom: 3.8rem;
+  box-shadow: 
+    inset 0 0 85px rgba(0, 0, 0, 0.98),
+    0 0 35px rgba(37, 99, 235, 0.25),
+    0 25px 60px rgba(0, 0, 0, 0.98);
+}
+
+/* FACTION BRAND ETCHED INTO CENTER OF WOOD PLANKS (HORDE & ALLIANCE EMBLEMS) */
+.board-wood-brand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(260px, 36vw, 420px);
+  height: clamp(260px, 36vw, 420px);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wood-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: none;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+body.theme-horde .wood-brand-img.brand-horde {
+  display: block;
+  opacity: 0.32;
+  filter: drop-shadow(0 0 35px rgba(220, 38, 38, 0.85)) brightness(0.85) contrast(1.4);
+}
+
+body.theme-alliance .wood-brand-img.brand-alliance {
+  display: block;
+  opacity: 0.28;
+  filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.85)) brightness(0.9) contrast(1.3);
+}
+
+body.theme-titans .wood-brand-img.brand-horde {
+  display: block;
+  opacity: 0.22;
+  filter: hue-rotate(185deg) drop-shadow(0 0 30px rgba(0, 229, 255, 0.8));
+}
+
+/* 4 CONNECTED CORNER REINFORCEMENTS (SOLIDLY ANCHORED OVER THE FRAME) */
+.corner-bracket {
+  position: absolute;
+  width: clamp(26px, 3.6vw, 42px);
+  height: clamp(26px, 3.6vw, 42px);
+  z-index: 15;
+  pointer-events: none;
+}
+
+.corner-tl {
+  top: -4px;
+  left: -4px;
+  border-top: 6px solid #5a5a5a;
+  border-left: 6px solid #5a5a5a;
+  background: linear-gradient(135deg, #444 0%, #151515 55%, transparent 56%);
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.corner-tr {
+  top: -4px;
+  right: -4px;
+  border-top: 6px solid #5a5a5a;
+  border-right: 6px solid #5a5a5a;
+  background: linear-gradient(-135deg, #444 0%, #151515 55%, transparent 56%);
+  box-shadow: 2px -2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.corner-bl {
+  bottom: -4px;
+  left: -4px;
+  border-bottom: 6px solid #5a5a5a;
+  border-left: 6px solid #5a5a5a;
+  background: linear-gradient(45deg, #444 0%, #151515 55%, transparent 56%);
+  box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.corner-br {
+  bottom: -4px;
+  right: -4px;
+  border-bottom: 6px solid #5a5a5a;
+  border-right: 6px solid #5a5a5a;
+  background: linear-gradient(-45deg, #444 0%, #151515 55%, transparent 56%);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.95);
+}
+
+.iron-bolt {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #bbb 0%, #444 60%, #111 100%);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.corner-tl .iron-bolt { top: 5px; left: 5px; }
+.corner-tr .iron-bolt { top: 5px; right: 5px; }
+.corner-bl .iron-bolt { bottom: 5px; left: 5px; }
+.corner-br .iron-bolt { bottom: 5px; right: 5px; }
+
+/* ALLIANCE THEME: Stormwind Carved White-Stone Brackets & Royal Gold Rivets */
+body.theme-alliance .corner-bracket {
+  width: clamp(26px, 3.6vw, 40px);
+  height: clamp(26px, 3.6vw, 40px);
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
+}
+
+body.theme-alliance .corner-tl {
+  top: -4px;
+  left: -4px;
+  border-top: 5px solid #f8fafc;
+  border-left: 5px solid #cbd5e1;
+  background: linear-gradient(135deg, #f8fafc 0%, #94a3b8 55%, transparent 56%);
+}
+
+body.theme-alliance .corner-tr {
+  top: -4px;
+  right: -4px;
+  border-top: 5px solid #f8fafc;
+  border-right: 5px solid #cbd5e1;
+  background: linear-gradient(-135deg, #f8fafc 0%, #94a3b8 55%, transparent 56%);
+}
+
+body.theme-alliance .corner-bl {
+  bottom: -4px;
+  left: -4px;
+  border-bottom: 5px solid #64748b;
+  border-left: 5px solid #94a3b8;
+  background: linear-gradient(45deg, #475569 0%, #94a3b8 55%, transparent 56%);
+}
+
+body.theme-alliance .corner-br {
+  bottom: -4px;
+  right: -4px;
+  border-bottom: 5px solid #64748b;
+  border-right: 5px solid #94a3b8;
+  background: linear-gradient(-45deg, #475569 0%, #94a3b8 55%, transparent 56%);
+}
+
+body.theme-alliance .iron-bolt {
+  width: 9px;
+  height: 9px;
+  clip-path: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffdf0 0%, #d4af37 45%, #854d0e 90%, #3f2005 100%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8), 0 0 6px rgba(212, 175, 55, 0.5);
+}
+
+/* Hide bottom brackets in Horde and Titans (wood flows into stakes) */
+body.theme-horde .corner-bl,
+body.theme-horde .corner-br,
+body.theme-titans .corner-bl,
+body.theme-titans .corner-br {
+  display: none !important;
+}
+
+body.theme-alliance .corner-bl,
+body.theme-alliance .corner-br {
+  display: block;
+}
+
+/* HORDE SIDE TIMBER STAKES (PUNTAS DE MADERA EN FORMA DE ASTA) */
+.horde-side-spike {
+  position: absolute;
+  display: none;
+  pointer-events: none;
+  z-index: 6;
+}
+
+body.theme-horde .horde-side-spike,
+body.theme-titans .horde-side-spike {
+  display: block;
+}
+
+.spike-left-1 {
+  top: 75px;
+  left: -22px;
+  width: 26px;
+  height: 18px;
+  background: linear-gradient(135deg, #f8ecd8 0%, #dfc39a 35%, #9a6538 65%, #361a0c 100%);
+  clip-path: polygon(100% 20%, 100% 80%, 0% 40%);
+  filter: drop-shadow(-3px 4px 6px rgba(0, 0, 0, 0.9));
+  transform: rotate(-10deg);
+}
+
+.spike-left-2 {
+  top: 150px;
+  left: -24px;
+  width: 28px;
+  height: 20px;
+  background: linear-gradient(135deg, #faebd7 0%, #d49b55 40%, #78350f 75%, #271005 100%);
+  clip-path: polygon(100% 15%, 100% 85%, 0% 45%);
+  filter: drop-shadow(-3px 4px 6px rgba(0, 0, 0, 0.9));
+  transform: rotate(-5deg);
+}
+
+.spike-right-1 {
+  top: 75px;
+  right: -22px;
+  width: 26px;
+  height: 18px;
+  background: linear-gradient(-135deg, #f8ecd8 0%, #dfc39a 35%, #9a6538 65%, #361a0c 100%);
+  clip-path: polygon(0% 20%, 0% 80%, 100% 40%);
+  filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.9));
+  transform: rotate(10deg);
+}
+
+.spike-right-2 {
+  top: 150px;
+  right: -24px;
+  width: 28px;
+  height: 20px;
+  background: linear-gradient(-135deg, #faebd7 0%, #d49b55 40%, #78350f 75%, #271005 100%);
+  clip-path: polygon(0% 15%, 0% 85%, 100% 45%);
+  filter: drop-shadow(3px 4px 6px rgba(0, 0, 0, 0.9));
+  transform: rotate(5deg);
+}
+
+/* --------------------------------------------------------------------------
+   HORDE HEWN TIMBER STAKE OVERLAY (FACETED AXE-CUT WOOD UNIFIED WITH TIMBER)
+   -------------------------------------------------------------------------- */
+.horde-hewn-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(85px, 10vw, 120px);
+  pointer-events: none;
+  z-index: 5;
+  display: none;
+}
+
+body.theme-horde .horde-hewn-overlay {
+  display: block;
+}
+
+body.theme-titans .horde-hewn-overlay {
+  display: block;
+  filter: hue-rotate(185deg) brightness(1.2);
+}
+
+body.theme-alliance .horde-hewn-overlay {
+  display: none;
+}
+
+.hewn-faceted-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   ALLIANCE BOTTOM CARVED STONE PEDESTAL
+   -------------------------------------------------------------------------- */
+.board-bottom-adornment {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -8px;
+  position: relative;
+  z-index: 8;
+  pointer-events: none;
+}
+
+body.theme-horde .board-bottom-adornment,
+body.theme-titans .board-bottom-adornment {
+  display: none !important;
+}
+
+body.theme-alliance .board-bottom-adornment {
+  display: flex !important;
+}
+
+.alliance-stone-base {
+  display: none;
+  width: 84%;
+  max-width: 720px;
+  height: clamp(65px, 8.5vw, 85px);
+  background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 60%, #64748b 100%);
+  border: 4px solid #f1f5f9;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  clip-path: polygon(0% 0%, 100% 0%, 94% 75%, 50% 100%, 6% 75%);
+  box-shadow: 
+    0 16px 30px rgba(0, 0, 0, 0.95),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.5);
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  margin-top: -6px;
+}
+
+body.theme-alliance .alliance-stone-base {
+  display: flex;
+}
+
+.alliance-pedestal-svg {
+  width: 85%;
+  height: 38px;
+  opacity: 0.88;
+}
+
+/* ==========================================================================
+   WEATHERED QUEST PARCHMENTS (STRICT SINGLE ROW - NEVER WRAP)
+   ========================================================================== */
+.timer-grid {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: nowrap; /* STRICTLY NEVER WRAP */
+  gap: clamp(0.35rem, 1.2vw, 1.1rem);
+  width: 100%;
+}
+
+.quest-parchment {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 165px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.9)) drop-shadow(0 3px 6px rgba(0, 0, 0, 0.95));
+}
+
+/* Organic tilt like genuine pinned quest notices in Azeroth */
+#card-days { transform: rotate(-2.2deg); }
+#card-hours { transform: rotate(1.4deg); }
+#card-minutes { transform: rotate(-0.8deg); }
+#card-seconds { transform: rotate(2.2deg); }
+#card-ms { transform: rotate(-1.5deg); }
+
+.quest-parchment:hover {
+  transform: translateY(-8px) scale(1.05) !important;
+  z-index: 25;
+}
+
+/* FASTENERS: WEAPONS & BLACKSMITH SPIKES */
+.parchment-fastener {
+  position: absolute;
+  top: -16px;
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Orcish Throwing Dagger Fastener (pinned on DAYS card) */
+.fastener-dagger {
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg);
+  width: 28px;
+  height: 44px;
+}
+.dagger-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Orcish Battle Axe / War Hatchet (wedged in SECONDS card) */
+.fastener-hatchet {
+  top: -24px;
+  right: -10px;
+  transform: rotate(-18deg);
+  width: 46px;
+  height: 50px;
+}
+.hatchet-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Forged Blacksmith Square Nail Fastener */
+.fastener-nail {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nail-head {
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 35%, #888 0%, #303030 55%, #101010 100%);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.95), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+body.theme-alliance .nail-head {
+  background: radial-gradient(circle at 35% 35%, #fff1ba 0%, #d4af37 55%, #7a5009 100%);
+  border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   THE AGED, TORN & RAGGED PARCHMENT SHEETS (PHOTOREALISTIC TEXTURE)
+   -------------------------------------------------------------------------- */
+.parchment-sheet {
+  position: relative;
+  width: 100%;
+  height: clamp(126px, 18vw, 178px);
+  background-image: 
+    linear-gradient(rgba(255, 248, 220, 0.15), rgba(70, 35, 10, 0.35)),
+    url('assets/parchment_texture.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 0.4rem 0.6rem 0.4rem;
+  box-shadow: 
+    inset 0 0 24px rgba(40, 16, 4, 0.75),
+    inset 0 0 6px rgba(70, 30, 8, 0.5);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* INDIVIDUAL RAGGED, TORN & FRAYED CLIP-PATHS FOR EACH CARD */
+.sheet-days {
+  clip-path: polygon(
+    1% 2%, 18% 0%, 94% 1%, 99% 4%, 
+    97% 32%, 100% 64%, 97% 92%, 88% 97%, 
+    58% 95%, 32% 98%, 4% 94%, 0% 86%, 
+    2% 44%, 0% 12%
+  );
+}
+
+.sheet-hours {
+  clip-path: polygon(
+    3% 0%, 97% 1%, 100% 4%, 97% 30%, 
+    100% 40%, 96% 50%, 99% 91%, 92% 98%, 
+    54% 96%, 16% 100%, 0% 95%, 1% 38%, 0% 8%
+  );
+}
+
+.sheet-minutes {
+  clip-path: polygon(
+    0% 3%, 36% 0%, 96% 2%, 99% 18%, 
+    97% 60%, 100% 85%, 95% 98%, 56% 96%, 
+    26% 100%, 5% 96%, 0% 78%, 2% 32%
+  );
+}
+
+.sheet-seconds {
+  clip-path: polygon(
+    2% 1%, 95% 0%, 100% 6%, 97% 40%, 
+    100% 78%, 95% 100%, 64% 97%, 28% 99%, 
+    7% 95%, 0% 84%, 3% 24%
+  );
+}
+
+.sheet-ms {
+  clip-path: polygon(
+    3% 2%, 95% 0%, 99% 7%, 96% 46%, 
+    100% 90%, 91% 98%, 44% 95%, 10% 100%, 
+    0% 86%, 2% 28%
+  );
+}
+
+/* Subtle scorched edges overlay */
+.parchment-overlay-burn {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 20px rgba(45, 18, 4, 0.7);
+  pointer-events: none;
+}
+
+/* Curled Scroll Roll at bottom of DAYS parchment */
+.scroll-curl-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 6%;
+  width: 88%;
+  height: 10px;
+  background: linear-gradient(180deg, rgba(70, 35, 12, 0.5) 0%, #dfccaa 40%, #c49a62 80%, #3e1f08 100%);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+/* WAX SEAL (HOURS CARD) */
+.parchment-wax-seal {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e11d48 0%, #991b1b 60%, #450a0a 100%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.wax-seal-inner {
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #fecdd3;
+  text-shadow: 0 -1px 0 #7f1d1d;
+  opacity: 0.9;
+}
+
+body.theme-alliance .parchment-wax-seal {
+  background: radial-gradient(circle at 35% 35%, #3b82f6 0%, #1e40af 60%, #0f172a 100%);
+}
+body.theme-alliance .wax-seal-inner { color: #bfdbfe; }
+
+/* BOUNTY STAMP (MINUTES CARD) */
+.parchment-bounty-stamp {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: rgba(185, 28, 28, 0.5);
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+/* WANTED POSTER OVERLAY WITH BLOOD-RED 'X' (SECONDS CARD) */
+.wanted-poster-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wanted-sketch-silhouette {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #22120b 0%, #5c3b24 60%, transparent 100%);
+  opacity: 0.7;
+}
+
+.wanted-blood-cross {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  background: 
+    linear-gradient(45deg, transparent 42%, #991b1b 45%, #991b1b 55%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, #991b1b 45%, #991b1b 55%, transparent 58%);
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   DARK GOTHIC INK NUMERALS ON PARCHMENT
+   -------------------------------------------------------------------------- */
+.plate-number {
+  font-family: var(--font-title);
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: #170802;
+  text-shadow: 0 1px 1px rgba(255, 235, 205, 0.5), 0 -1px 0 rgba(0, 0, 0, 0.6);
+  line-height: 1;
+  margin-top: 0.25rem;
+  z-index: 5;
+  transition: transform 0.1s ease-out;
+}
+
+body.theme-alliance .plate-number {
+  color: #0c1836;
+  text-shadow: 0 1px 1px rgba(255, 248, 220, 0.6), 0 0 1px #2563eb;
+}
+
+.plate-number.tick {
+  animation: numPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes numPop {
+  0% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.plate-number.ms-number {
+  font-size: clamp(1.7rem, 3.6vw, 2.9rem);
+}
+
+.parchment-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #543315;
+  text-transform: uppercase;
+  margin-top: 0.35rem;
+  z-index: 5;
+}
+
+body.theme-alliance .parchment-label { color: #1e3a8a; }
+body.theme-horde .parchment-label { color: #7f1d1d; }
+
+.label-decor {
+  font-size: 0.55rem;
+  opacity: 0.7;
+}
+
+.parchment-meta {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #8c6739;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+  opacity: 0.88;
+  z-index: 5;
+}
+
+body.theme-alliance .parchment-meta { color: #3b5078; }
+body.theme-horde .parchment-meta { color: #991b1b; }
+
+/* Separator dots between pinned parchments */
+.board-separator {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4.4vw, 3.4rem);
+  font-weight: 900;
+  color: #4a2f16;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3), 0 3px 10px rgba(0, 0, 0, 0.95);
+  margin-top: -1.2rem;
+  opacity: 0.85;
+  animation: separatorBlink 2s ease-in-out infinite;
+  align-self: center;
+}
+
+body.theme-alliance .board-separator { color: #c89b3c; }
+body.theme-horde .board-separator { color: #991b1b; }
+
+@keyframes separatorBlink {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.35; }
+}
+
+/* ==========================================================================
+   LAUNCH INFO PLATE & PROGRESS BAR
+   ========================================================================== */
+.launch-info-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: rgba(10, 14, 22, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 0.75rem 1.8rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  transition: border-color 0.4s ease;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.88rem;
+}
+
+.info-svg-icon {
+  width: 17px;
+  height: 17px;
+  fill: var(--theme-accent-gold);
+  opacity: 0.9;
+}
+
+.info-title {
+  color: #94a3b8;
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.info-value {
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.info-value.highlight {
+  color: var(--theme-accent-gold);
+  text-shadow: 0 0 10px rgba(243, 207, 101, 0.4);
+}
+
+.info-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Progress Bar */
+.launch-progress-container {
+  width: 100%;
+  max-width: 680px;
+  margin-top: 0.2rem;
+}
+
+.progress-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+.progress-percent {
+  color: var(--theme-accent-gold);
+  font-weight: 700;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #b45309, #d4af37, var(--theme-secondary));
+  border-radius: 8px;
+  box-shadow: 0 0 12px var(--theme-glow);
+  transition: width 0.4s ease;
+}
+
+/* Celebration Box */
+.launch-celebration-box {
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 78, 59, 0.35));
+  border: 2px solid #10b981;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+  animation: celebrationPulse 2s infinite alternate;
+}
+
+.launch-celebration-box.hidden {
+  display: none;
+}
+
+.celebration-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #a7f3d0;
+  text-shadow: 0 0 15px #10b981;
+  margin-bottom: 0.4rem;
+}
+
+.celebration-text {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+}
+
+@keyframes celebrationPulse {
+  0% { transform: scale(1); box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+  100% { transform: scale(1.02); box-shadow: 0 0 40px rgba(16, 185, 129, 0.8); }
+}
+
+/* ==========================================================================
+   BOTTOM AUDIO HUD BAR & "FOREVER" BADGE
+   ========================================================================== */
+.audio-hud {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: linear-gradient(180deg, rgba(10, 14, 22, 0.94) 0%, rgba(5, 7, 12, 0.98) 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.75rem 1.5rem;
+}
+
+.audio-hud-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.track-info-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  width: 30px;
+  height: 24px;
+}
+
+.visualizer .bar {
+  flex: 1;
+  background: var(--grad-gold);
+  border-radius: 1px;
+  height: 20%;
+  transition: height 0.15s ease;
+}
+
+.visualizer.playing .bar:nth-child(1) { animation: eqBar 0.8s ease-in-out infinite alternate; }
+.visualizer.playing .bar:nth-child(2) { animation: eqBar 0.5s ease-in-out infinite alternate 0.2s; }
+.visualizer.playing .bar:nth-child(3) { animation: eqBar 0.9s ease-in-out infinite alternate 0.4s; }
+.visualizer.playing .bar:nth-child(4) { animation: eqBar 0.6s ease-in-out infinite alternate 0.1s; }
+.visualizer.playing .bar:nth-child(5) { animation: eqBar 0.75s ease-in-out infinite alternate 0.3s; }
+
+@keyframes eqBar {
+  0% { height: 15%; }
+  100% { height: 100%; box-shadow: 0 0 8px var(--theme-secondary); }
+}
+
+.track-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.track-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.track-name {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+}
+
+/* "Forever" Badge */
+.badge-forever-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.22rem 0.75rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.22) 0%, rgba(12, 18, 28, 0.85) 100%);
+  border: 1px solid var(--theme-primary);
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 10px var(--theme-glow);
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.badge-forever-container:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.8), 0 0 16px var(--theme-glow);
+}
+
+.badge-forever-infinity {
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--theme-accent-gold);
+  text-shadow: 0 0 8px var(--theme-glow);
+  animation: infinityBreathe 3s ease-in-out infinite alternate;
+}
+
+@keyframes infinityBreathe {
+  0% { transform: scale(1); opacity: 0.85; }
+  100% { transform: scale(1.15); opacity: 1; text-shadow: 0 0 14px var(--theme-secondary); }
+}
+
+.badge-forever-text {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  background: var(--grad-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+}
+
+.track-meta {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* Audio Controls */
+.audio-controls-group {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.hud-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2a374a, #111827);
+  border: 1px solid var(--theme-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 10px rgba(212, 175, 55, 0.2);
+  transition: all 0.2s ease;
+}
+
+.hud-btn:hover {
+  transform: scale(1.08);
+  border-color: #ffd700;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.8), 0 0 15px var(--theme-glow);
+}
+
+.ctrl-svg {
+  width: 18px;
+  height: 18px;
+  fill: #f3cf65;
+}
+
+.ctrl-svg-sm {
+  width: 18px;
+  height: 18px;
+  fill: #cbd5e1;
+}
+
+.volume-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hud-btn-mute {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.hud-btn-mute:hover {
+  transform: scale(1.15);
+}
+
+.wow-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 6px;
+  background: #1e293b;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.wow-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--grad-gold);
+  border: 1px solid #785213;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.wow-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 8px var(--theme-secondary);
+}
+
+.volume-number {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--theme-accent-gold);
+  min-width: 32px;
+}
+
+.yt-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(229, 9, 20, 0.15);
+  border: 1px solid rgba(229, 9, 20, 0.4);
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.yt-link-btn:hover {
+  background: rgba(229, 9, 20, 0.3);
+  border-color: #ff2222;
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.4);
+  transform: translateY(-1px);
+}
+
+.yt-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .board-flanking-pillar { width: clamp(85px, 11vw, 130px); height: clamp(440px, 52vh, 550px); }
+  .board-chain-connector { width: clamp(35px, 5vw, 65px); margin: 0 -16px; margin-top: clamp(75px, 9vw, 105px); }
+  .timer-grid { gap: 0.5rem; }
+}
+
+@media (max-width: 768px) {
+  .board-flanking-pillar { width: clamp(65px, 9vw, 85px); height: 380px; }
+  .board-chain-connector { width: 32px; margin: 0 -10px; margin-top: 60px; }
+  .timer-grid { gap: 0.4rem; }
+  .audio-hud-inner { justify-content: center; text-align: center; }
+  .track-info-group { justify-content: center; }
+}
+
+@media (max-width: 650px) {
+  .board-flanking-pillar,
+  .board-chain-connector { display: none; }
+  .quest-board { max-width: 100%; margin: 0; }
+  .board-separator { display: none; }
+  .timer-grid { gap: 0.35rem; }
+  .parchment-sheet { height: 110px; padding: 0.4rem 0.2rem; }
+  .plate-number { font-size: 1.8rem; }
+  .plate-number.ms-number { font-size: 1.25rem; }
+  .parchment-label { font-size: 0.62rem; }
+  .parchment-meta { display: none; }
+  .launch-info-plate { flex-direction: column; gap: 0.5rem; border-radius: 12px; }
+  .info-divider { display: none; }
+  .volume-slider-group { display: none; }
+}
